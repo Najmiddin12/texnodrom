@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Texnodrom</title>
+    <link rel="stylesheet" href="{% static 'devices/style12.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="navigation">
+                    <div class="logo">
+                        <a href="#">Texnodrom</a>
+                    </div>
+                    <div class="navbar-nav">
+                        <a href="#">home</a>
+                        <a href="#autoday">phone</a>
+                        <a href="#autobattle">planshet</a>
+                        <a href="#" >notebook</a>
+                    </div>
+                </div>
+            </div>
+        </nav> <!-- End of Navbar-->
+        <div class="grid">
+            <div class="item" style="background-image: url({% static "devices/notebook.jpg" %})"></div>
+            <div class="item" style="background-image: url({% static "devices/phone1.jpg" %})"></div>
+            <div class="item" style="background-image: url({% static "devices/planshet.jpg" %})"></div>
+            <div class="item" style="background-image: url({% static "devices/phone2.jpg" %})"></div>
+        </div>
+    </header>
+
+    <section class="design" id="autoday">
+        <div class="container">
+            <div class="title">
+                <table class="p-tab">
+                    <tr>
+                        <td class="text">Bestselling tablets</td>
+                        <td class="te"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="img" class="phone">
+                {% for basic_products in basic_product %}
+                <div class="card">
+                    <div class="imgBx">
+                        <img id="{{ basic_products.tag }}" src="{{ basic_products.image.url }}">
+                    </div>
+                    <div class="contentBx">
+                        <h2>{{ basic_products.product_name }}</h2>
+                        <div class="color">
+                            <h3>Color :</h3>
+                            {% for extra_products in extra_product %}
+                                {% if basic_products.tag == extra_products.basic_product.tag %}
+                                    <span style="background-color: {{ extra_products.color }}" onclick="document.getElementById('{{ basic_products.tag }}').src='{{ extra_products.image.url }}'"></span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="price">
+                            <h3>Price : {{ basic_products.price }}$</h3>
+                        </div>
+                        <a href="#">Buy Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="p-btn1">
+            <span><i id="showLess" class="fas fa-angle-up"></i></span>
+        </div>
+        <div class="p-btn2">
+            <button id="loadMore">Show More</button>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="title">
+                <table class="l-tab">
+                    <tr>
+                        <td class="text">Notebooks</td>
+                        <td class="te"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="im" class="containir">
+                {% for laptops in laptop %}
+                <div class="card">
+                    <div class="imgBx">
+                        <img src="{{ laptops.image.url }}">
+                    </div>
+                    <div class="contentBx">
+                        <h2>{{ laptops.product_name }}</h2>
+                        <div class="protsesor">
+                            <h3>Processor : {{ laptops.processor }}</h3>
+                        </div>
+                        <div class="screen">
+                            <h3>Graphics : {{ laptops.graphics }}</h3>
+                        </div>
+                        <div class="memory">
+                            <h3>Memory : {{ laptops.memory }}</h3>
+                        </div>
+                        <div class="price">
+                            <h3>price : {{ laptops.price }}$</h3>
+                        </div>
+                        <a href="#">Buy Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="l-btn1">
+            <span><i class="fas fa-angle-up"></i></span>
+        </div>
+        <div class="l-btn2">
+            <button id="loadMor">Show More</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+        </div>
+        <span>Texno blog</span>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(window).load(function () {
+                $('#img div').not(':lt(30)').hide();
+                $('#showLess').hide()
+            });
+            $('#loadMore').click(function () {
+                $('#img div:lt(10000)').show();
+                siz = $('#img div').size();
+                if(siz > 30){
+                    $('#loadMore').hide();
+                    $('#loadMor').hide();
+                    $('#showLess').show();
+                }
+            });
+            $('#showLess').click(function () {
+                $('#img div').not(':lt(30)').hide();
+                if(siz < 50){
+                    $('#showLess').hide();
+                    $('#loadMore').show();
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(window).load(function () {
+                $('#im div').not(':lt(42)').hide();
+                $('#showLess').hide()
+            });
+            $('#loadMor').click(function () {
+                $('#im div:lt(10000)').show();
+                siz = $('#im div').size();
+                if(siz > 42){
+                    $('#loadMor').hide();
+                    $('#showLess').show();
+                }
+            });
+            $('#showLess').click(function () {
+                $('#im div').not(':lt(42)').hide();
+                if(siz < 50){
+                    $('#showLess').hide();
+                    $('#loadMor').show();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
